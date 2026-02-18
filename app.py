@@ -5,12 +5,12 @@ import pandas as pd
 
 # --- API KEYS (Pulled from Streamlit Secrets) ---
 try:
-    GEMINI_API_KEY = st.secrets["AIzaSyCAJNQaeJY64OmCY1_bJrIDUOg0yYYukuM"]
-    WEATHER_API_KEY = st.secrets["e77e109c4f7314b5d1e4bbb380d35170"]
+    # Use short labels here, NOT the actual long keys
+    GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+    WEATHER_API_KEY = st.secrets["WEATHER_API_KEY"]
 except KeyError:
     st.error("Missing API Keys! Go to Streamlit Settings > Secrets and add them.")
     st.stop()
-
 # Configure AI
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
@@ -76,4 +76,5 @@ if weather:
                 context = f"Plan a {days}-day {budget} trip to {dest}. Weather: {weather['desc']}. Request: {user_query}"
                 response = model.generate_content(context)
                 st.markdown(response.text)
+
                 st.session_state.messages.append({"role": "assistant", "content": response.text})
