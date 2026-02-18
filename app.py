@@ -12,7 +12,8 @@ except KeyError:
     st.error("Missing API Keys! Go to Streamlit Settings > Secrets and add them.")
     st.stop()
 # Configure AI
-genai.configure(api_key=GEMINI_API_KEY)
+# Update this line in your app.py on GitHub:
+genai.configure(api_key=GEMINI_API_KEY, transport="rest")
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 st.set_page_config(page_title="AI Voyager", page_icon="🌍", layout="wide")
@@ -78,3 +79,4 @@ if weather:
                 st.markdown(response.text)
 
                 st.session_state.messages.append({"role": "assistant", "content": response.text})
+
